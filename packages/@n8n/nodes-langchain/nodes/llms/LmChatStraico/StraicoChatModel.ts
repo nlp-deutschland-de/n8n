@@ -110,8 +110,11 @@ Return the response in JSON format.
 `;
     }
 
+    // Set smart_llm_selector based on modelName, default to 'balance' for non-Claude models
+    const smartLlmSelector = this.modelName.includes('claude') ? 'quality' : 'balance';
+
     const body = {
-      smart_llm_selector: this.modelName.includes('claude') ? 'quality' : 'speed',
+      smart_llm_selector: smartLlmSelector,
       message: prompt,
       replace_failed_models: true,
       ...(this.temperature && { temperature: this.temperature }),
